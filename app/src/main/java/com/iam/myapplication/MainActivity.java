@@ -1,5 +1,6 @@
 package com.iam.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,15 +11,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button button = findViewById(R.id.btn1);
+        setContentView(R.layout.activity_main);
+        final Button button = findViewById(R.id.btn1);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,FirstActivity.class);
+                startActivity(intent);
             }
         };
         button.setOnClickListener(listener);
-
-        setContentView(R.layout.activity_main);
     }
 }

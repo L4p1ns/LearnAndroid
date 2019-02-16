@@ -9,13 +9,14 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-      /*  TextView text  = new TextView(this);
+       /* TextView text  = new TextView(this);
         text.setText("My Application");
         String appName = getResources().getResourceName();
 
         appName = "IAM Android Application";
         text.setText(appName);
         setContentView(text);*/
+       setContentView(R.layout.activity_first);
     }
 }
 
