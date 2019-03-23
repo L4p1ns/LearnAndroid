@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Reseau">
+        <CheckBoxPreference
+            android:key="samacheck_box"
+            android:summaryOff="3G"
+            android:summaryOn="WifiIAM"
+            android:title="Choix"></CheckBoxPreference>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Connexion">
+        <EditTextPreference
+            android:dependency="samacheck_box"
+            android:dialogTitle="Voulez-vous confirmer votre choix?"
+            android:key="sama_edit_text"
+            android:negativeButtonText="Annuler"
+            android:positiveButtonText="Valider"
+            android:title="TP IAM" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Couleurs"></PreferenceCategory>
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/couleurs"
+        android:entryValues="@array/couleurs_a_afficher"
+        android:key="list_preference_1"
+        android:title="List preference" />
+
+
+</PreferenceScreen>
