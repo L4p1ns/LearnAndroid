@@ -1,6 +1,7 @@
 package com.iam.myapplication.databases;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class EtudiantDAO extends DAOBase {
@@ -56,16 +57,17 @@ public class EtudiantDAO extends DAOBase {
         sqliteDatabase.close();
     }
 
-    public Etudiant selectionnerEtudiant(long id) {
-//        SQLiteDatabase db = this.dbIam;
-        return null;
+    public Etudiant selectionnerEtudiant(long idEtudiant) {
+        sqliteDatabase = this.open();
+
+        Cursor cursor = sqliteDatabase.query(true, DatabaseIAM.TableEtudiant, new String[]{
+                        DatabaseIAM.ID, DatabaseIAM.NOM, DatabaseIAM.PRENOM, DatabaseIAM.AGE},
+                DatabaseIAM.ID + "=?", new String[]{String.valueOf(idEtudiant)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        Etudiant etudiant = new Etudiant(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
+        return etudiant;
     }
 
-    /*
-    * public Etudiant selectionnerEtudiant(long id) { SQLiteDatabase db = this.open();
-Cursor cursor = db.query(DatabaseIAM.ETUDIANT_TABLE_NAME, new String[] { DatabaseIAM.ETUDIANT_KEY, DatabaseIAM.ETUDIANT_NOM, DatabaseIAM.ETUDIANT_PRENOM, DatabaseIAM.ETUDIANT_AGE }, DatabaseIAM.ETUDIANT_KEY+ "=?", new String[] { String.valueOf(id) }, null, null, null, null); if (cursor != null) cursor.moveToFirst();
-Etudiant etudiant = new Etudiant(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
-return etudiant;
-}*/
 }
 
