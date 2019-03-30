@@ -1,14 +1,19 @@
 package com.iam.myapplication.databases;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EtudiantDAO extends DAOBase {
     public SQLiteDatabase sqliteDatabase;
 
-    public EtudiantDAO(SQLiteDatabase sqlDb, DatabaseIAM dbIam) {
-        super(sqlDb, dbIam);
+
+    public EtudiantDAO(Context pcontext) {
+        super(pcontext);
     }
 
     @Override
@@ -57,7 +62,27 @@ public class EtudiantDAO extends DAOBase {
         sqliteDatabase.close();
     }
 
-    public Etudiant selectionnerEtudiant(long idEtudiant) {
+    public List<Etudiant> getAllEtudiants() {
+        sqliteDatabase = this.open();
+
+        Cursor cursor = sqliteDatabase.rawQuery("select * from " + DatabaseIAM.TableEtudiant, null);
+        List<Etudiant> etudiants = new ArrayList<Etudiant>();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (cursor.moveToFirst()) {
+                Etudiant etudiant = new Etudiant();
+                etudiant.setIdEtudiant(Long.parseLong(cursor.getString(0)));
+                etudiant.setNom(cursor.getString(1));
+                etudiant.setPrenom(cursor.getString(2));
+                etudiant.setAge(Integer.parseInt(cursor.getString(3)));
+                etudiants.add(etudiant);
+            }
+        }
+        sqliteDatabase.close();
+        return etudiants;
+    }
+
+    /*public Etudiant selectionnerEtudiant(long idEtudiant) {
         sqliteDatabase = this.open();
 
         Cursor cursor = sqliteDatabase.query(true, DatabaseIAM.TableEtudiant, new String[]{
@@ -67,7 +92,7 @@ public class EtudiantDAO extends DAOBase {
             cursor.moveToFirst();
         Etudiant etudiant = new Etudiant(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
         return etudiant;
-    }
+    }*/
 
 }
 
